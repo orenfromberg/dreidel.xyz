@@ -1,3 +1,7 @@
+* {
+    font-family: 'Frank Ruhl Libre', serif;
+}
+
 /* pyramid author : Selim Khemissi http://www.khemissi.com http://www.khemissi.com/examples/css3/010-3D-pyramid/ */
 .stage {
     position: relative;
@@ -52,7 +56,7 @@
     font-size: 10em;
     color: #fff;
     text-align: center;
-    font-family: "Times New Roman", Times, serif;
+    font-family: 'Frank Ruhl Libre', serif;
     font-weight: bold;
 }
 
@@ -194,4 +198,8 @@ a {
 .dreidel {
     padding: 2rem;
     font-size: 2rem;
+}
+
+.center {
+    text-align: center;
 }
