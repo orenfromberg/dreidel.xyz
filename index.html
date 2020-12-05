@@ -21,18 +21,27 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"
         type="text/javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
     <script async="" type="text/javascript" src="dreidel.js"></script>
     <title>3D Dreidel</title>
 </head>
 
 <body>
-    <h1 style="font-size: 4rem;" class="center">חֲנוּכָּה שָׂמֵחַ</h1>
-    <h1 class="center">Happy Hannukah!</h1>
-    <p class="center"><small>Heavily based on <a href="https://codepen.io/laviperchik/pen/rnvzI">this codepen</a>. Submit issues <a target="_blank" rel="noopener noreferrer" href="https://github.com/orenfromberg/dreidel.xyz/issues">here</a>.
-        </small></p>
-    <p class="center">Tap on the dreidel or use the arrow keys on the keyboard to spin it.</p>
-    <p class="center"><a href="rules.html">See rules of the game</a></p>
-    <p class="center"><a href="support.html">Support this web app</a></p>
+    <div id="ex1" class="modal">
+        <!-- <p>Thanks for clicking. That felt good.</p> -->
+        <h1 class="center">חֲנוּכָּה שָׂמֵחַ</h1>
+        <h2 class="center">Happy Hannukah!</h2>
+        <p class="center">Heavily based on <a href="https://codepen.io/laviperchik/pen/rnvzI">this codepen</a>. Submit issues <a target="_blank" rel="noopener noreferrer" href="https://github.com/orenfromberg/dreidel.xyz/issues">here</a>.
+        </p>
+        <p class="center">Tap on the dreidel or use the arrow keys on the keyboard to spin it.</p>
+        <p class="center"><a href="rules.html">See rules of the game</a></p>
+        <p class="center"><a href="support.html">Support this web app</a></p>
+        <!-- <a href="#" rel="modal:close">Close</a> -->
+    </div>
+    <h1 class="center">dreidel.xyz</h1>
+    <p class="center"><a href="#ex1" rel="modal:open">about</a></p>
+    <div style="padding:8rem;"></div>
     <div class="stage">
         <div class="pyramid3d">
             <div class="square side1"></div>

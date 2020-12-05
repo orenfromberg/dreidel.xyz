@@ -4,10 +4,10 @@
 
 /* pyramid author : Selim Khemissi http://www.khemissi.com http://www.khemissi.com/examples/css3/010-3D-pyramid/ */
 .stage {
-    position: relative;
-    top: 300px;
-    width: 150px;
-    height: 320px;
+    /* position: relative; */
+    /* top: 300px; */
+    /* width: 150px; */
+    /* height: 320px; */
     margin: auto;
     perspective: 1200px;
     perspective-origin: 50% 50%;
