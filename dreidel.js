@@ -31,7 +31,13 @@
             self.initialized = true;
 
             $('.pyramid3d').click(function (evt) {
-                self.stdAngle += Math.random() * 10000;
+
+                var a = 10000 + Math.random() * 10000;
+                var b = (Math.floor(a / 90) * 90) + (-25 + Math.random() * 50);
+
+                var c = Math.floor(self.stdAngle / 360) * 360
+
+                self.stdAngle = c + b;
                 $.rotate3d(self.element, self.xAngle, self.stdAngle, self.scale);
 
             })
