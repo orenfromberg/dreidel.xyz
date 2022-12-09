@@ -32,8 +32,7 @@
     </div>
     <div>
       <h2>Bitcoin</h2>
-      <script>if (!window.btcpay) { var head = document.getElementsByTagName('head')[0]; var script = document.createElement('script'); script.src = 'https://btcpayserver.satoshislist.club/modal/btcpay.js'; script.type = 'text/javascript'; head.append(script); } function onBTCPayFormSubmit(event) { var xhttp = new XMLHttpRequest(); xhttp.onreadystatechange = function () { if (this.readyState == 4 && this.status == 200) { if (this.status == 200 && this.responseText) { var response = JSON.parse(this.responseText); window.btcpay.showInvoice(response.invoiceId); } } }; xhttp.open("POST", event.target.getAttribute('action'), true); xhttp.send(new FormData(event.target)); }</script>
-      <style type="text/css">
+      <style>
         .btcpay-form {
           display: inline-flex;
           align-items: center;
@@ -99,9 +98,13 @@
           border-color: #ccc;
         }
 
-        #btcpay-input-price {
-          -moz-appearance: none;
-          -webkit-appearance: none;
+        .btcpay-form option {
+          color: #000;
+          background: rgba(0, 0, 0, .1);
+        }
+
+        .btcpay-input-price {
+          -moz-appearance: textfield;
           border: none;
           box-shadow: none;
           text-align: center;
@@ -112,13 +115,13 @@
           background: #fff;
         }
 
-        #btcpay-input-price::-webkit-outer-spin-button,
-        #btcpay-input-price::-webkit-inner-spin-button {
+        .btcpay-input-price::-webkit-outer-spin-button,
+        .btcpay-input-price::-webkit-inner-spin-button {
           -webkit-appearance: none;
           margin: 0;
         }
       </style>
-      <style type="text/css">
+      <style>
         input[type=range].btcpay-input-range {
           -webkit-appearance: none;
           width: 100%;
@@ -217,29 +220,61 @@
           background: #fff;
         }
       </style>
-      <form method="POST" onsubmit="onBTCPayFormSubmit(event);return false"
-        action="https://btcpayserver.satoshislist.club/api/v1/invoices" class="btcpay-form btcpay-form--block">
-        <input type="hidden" name="storeId" value="7vUWUiN8Nw5ZQurbhV4iFMNh9JaNDmSyfL1K1DjYqypq" />
-        <input type="hidden" name="jsonResponse" value="true" />
+      <form method="POST" action="https://btcpay.satoshislist.club/api/v1/invoices"
+        class="btcpay-form btcpay-form--block">
+        <input type="hidden" name="storeId" value="CT3XChJkKCjidvxoQkP9pHCcD2Qud1ybR6sLStT2Rwcd" />
+        <input type="hidden" name="browserRedirect" value="https://www.dreidel.xyz/thanks.html" />
+        <input type="hidden" name="notifyEmail" value="orenfromberg@gmail.com" />
         <div class="btcpay-custom-container">
-          <input id="btcpay-input-price" name="price" type="text" min="0" max="none" step="any" value="1"
-            style="width: 209px;"
-            oninput="event.preventDefault();isNaN(event.target.value) || event.target.value <= 0 ? document.querySelector('#btcpay-input-price').value = 1 : event.target.value"
-            onchange="document.querySelector('#btcpay-input-range').value = document.querySelector('#btcpay-input-price').value" />
+          <input class="btcpay-input-price" type="number" name="price" min="1" max="180" step="1" value="1"
+            data-price="1" style="width:209px;" oninput="handlePriceInput(event);return false"
+            onchange="handleSliderChange(event);return false" />
           <select name="currency">
             <option value="USD" selected>USD</option>
             <option value="GBP">GBP</option>
             <option value="EUR">EUR</option>
             <option value="BTC">BTC</option>
           </select>
-          <input class="btcpay-input-range" id="btcpay-input-range" value="1" type="range" min="1" max="180" step="1"
-            style="width:209px;margin-bottom:15px;"
-            oninput="document.querySelector('#btcpay-input-price').value = document.querySelector('#btcpay-input-range').value" />
+          <input type="range" class="btcpay-input-range" min="1" max="180" step="1" value="1"
+            style="width:209px;margin-bottom:15px;" oninput="handleSliderInput(event);return false" />
         </div>
-        <input type="image" class="submit" name="submit"
-          src="https://btcpayserver.satoshislist.club/img/paybutton/pay.svg" style="width:209px"
-          alt="Pay with BtcPay, Self-Hosted Bitcoin Payment Processor">
+        <input type="image" class="submit" name="submit" src="https://btcpay.satoshislist.club/img/paybutton/pay.svg"
+          style="width:209px" alt="Pay with BTCPay Server, a Self-Hosted Bitcoin Payment Processor">
       </form>
+      <script>
+        function handleSliderChange(event) {
+          event.preventDefault();
+          const root = event.target.closest('.btcpay-form');
+          const el = root.querySelector('.btcpay-input-price');
+          const price = parseInt(el.value);
+          const min = parseInt(event.target.getAttribute('min')) || 1;
+          const max = parseInt(event.target.getAttribute('max'));
+          if (price < min) {
+            el.value = min;
+          } else if (price > max) {
+            el.value = max;
+          }
+          root.querySelector('.btcpay-input-range').value = el.value;
+        }
+
+        function handleSliderInput(event) {
+          event.target.closest('.btcpay-form').querySelector('.btcpay-input-price').value = event.target.value;
+        }
+
+        function handlePriceInput(event) {
+          event.preventDefault();
+          const root = event.target.closest('.btcpay-form');
+          const price = parseInt(event.target.dataset.price);
+          if (isNaN(event.target.value)) root.querySelector('.btcpay-input-price').value = price;
+          const min = parseInt(event.target.getAttribute('min')) || 1;
+          const max = parseInt(event.target.getAttribute('max'));
+          if (event.target.value < min) {
+            event.target.value = min;
+          } else if (event.target.value > max) {
+            event.target.value = max;
+          }
+        }
+      </script>
     </div>
     <p><a href="/">Go Back to the Dreidel</a></p>
   </div>
